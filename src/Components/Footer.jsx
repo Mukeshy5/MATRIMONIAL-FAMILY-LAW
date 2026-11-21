@@ -1,0 +1,53 @@
+import { Link } from 'react-router-dom'
+import { advocate, officeLocation } from '../data/advocate.js'
+import { practiceAreas } from '../data/practiceAreas.js'
+import { getWhatsAppUrl } from '../utils/whatsapp.js'
+import Icon from './Icon.jsx'
+
+const copyrightYear = new Date().getFullYear()
+
+export default function Footer() {
+  const featuredPractice = ['divorce-lawyer', 'mutual-consent-divorce', 'child-custody-lawyer', 'maintenance-alimony-lawyer', 'domestic-violence-lawyer', 'nri-divorce-lawyer']
+  const whatsappUrl = getWhatsAppUrl()
+  return (
+    <footer className="site-footer">
+      <div className="container footer-grid">
+        <div className="footer-brand">
+          <Link to="/" className="brand brand--footer">
+            <span className="brand-mark"><Icon name="landmark" size={23} /></span>
+            <span className="brand-copy"><strong>{advocate.name}</strong><small>MATRIMONIAL & FAMILY LAW</small></span>
+          </Link>
+          <p>{advocate.tagline}</p>
+          <p className="footer-small">General information on matrimonial and family-law matters in India.</p>
+        </div>
+        <div className="footer-column">
+          <h2>Explore</h2>
+          <Link to="/">Home</Link><Link to="/about-advocate/">About</Link><Link to="/practice-areas/">Practice areas</Link><Link to="/legal-resources/">Legal resources</Link><Link to="/faqs/">FAQs</Link><Link to="/contact/">Contact</Link>
+        </div>
+        <div className="footer-column">
+          <h2>Practice areas</h2>
+          {featuredPractice.map((slug) => {
+            const area = practiceAreas.find((item) => item.slug === slug)
+            return <Link key={slug} to={`/${slug}/`}>{area.title}</Link>
+          })}
+        </div>
+        <div className="footer-column footer-contact">
+          <h2>Office</h2>
+          <p><Icon name="map-pin" size={16} /> {advocate.address || officeLocation}</p>
+          <p><Icon name="clock" size={16} /> {advocate.hours}</p>
+          {advocate.phone ? <a href={`tel:${advocate.phone}`}><Icon name="phone" size={16} /> {advocate.phone}</a> : <p><Icon name="phone" size={16} /> Phone details to be confirmed</p>}
+          {advocate.email ? <a href={`mailto:${advocate.email}`}><Icon name="mail" size={16} /> {advocate.email}</a> : <p><Icon name="mail" size={16} /> Email details to be confirmed</p>}
+          {whatsappUrl && <a className="footer-whatsapp" href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp the office <Icon name="arrow-up-right" size={14} /></a>}
+        </div>
+      </div>
+      <div className="container footer-notice">
+        <p>Professional information notice: Before publication, the advocate should verify every profile and legal statement and confirm compliance with applicable Bar Council of India requirements, including Rule 36 website particulars and any required intimation or approval.</p>
+      </div>
+      <div className="container footer-bottom">
+        <span>© {copyrightYear} {advocate.name}. All rights reserved.</span>
+        <div><Link to="/privacy-policy/">Privacy policy</Link><Link to="/disclaimer/">Disclaimer</Link></div>
+        <span className="footer-bottom__note">General information only · No result or timeline is guaranteed</span>
+      </div>
+    </footer>
+  )
+}
