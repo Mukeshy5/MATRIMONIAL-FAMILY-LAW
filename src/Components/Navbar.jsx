@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { advocate, contactNumbers, firmName, officeLocation } from '../data/advocate.js'
 import { practiceAreas } from '../data/practiceAreas.js'
+import { legalServices } from '../data/legalServices.js'
 import Icon from './Icon.jsx'
 
 const linkClass = ({ isActive }) => `nav-link${isActive ? ' is-active' : ''}`
@@ -11,7 +12,9 @@ export default function Navbar() {
   const [practiceOpen, setPracticeOpen] = useState(false)
   const practiceRef = useRef(null)
   const location = useLocation()
-  const practiceActive = location.pathname === '/practice-areas/' || practiceAreas.some((area) => location.pathname === `/${area.slug}/`)
+  const practiceActive = location.pathname === '/practice-areas/'
+    || location.pathname.startsWith('/services/')
+    || practiceAreas.some((area) => location.pathname === `/${area.slug}/`)
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -46,7 +49,7 @@ export default function Navbar() {
       </div>
       <header className="site-header">
         <div className="container header-inner">
-          <Link to="/" className="brand" aria-label={`${advocate.name}, home`} onClick={closeMenus}>
+          <Link to="/" className="brand" aria-label={`${firmName}, home`} onClick={closeMenus}>
             <span className="brand-mark"><Icon name="landmark" size={23} /></span>
             <span className="brand-copy">
               <strong>{firmName}</strong>
@@ -84,7 +87,14 @@ export default function Navbar() {
                     <Link to="/practice-areas/" className="text-link" onClick={closeMenus}>View all areas <Icon name="arrow-right" size={16} /></Link>
                   </div>
                   <div className="mega-menu__links">
-                    {practiceAreas.map((area) => <Link key={area.slug} to={`/${area.slug}/`} onClick={closeMenus}>{area.title}<Icon name="arrow-up-right" size={14} /></Link>)}
+                    <div className="mega-menu__group">
+                      <p className="mega-menu__label">Family Law Matters</p>
+                      {practiceAreas.map((area) => <Link key={area.slug} to={`/${area.slug}/`} onClick={closeMenus}>{area.title}<Icon name="arrow-up-right" size={14} /></Link>)}
+                    </div>
+                    <div className="mega-menu__group">
+                      <p className="mega-menu__label">Other Legal Services</p>
+                      {legalServices.map((service) => <Link key={service.slug} to={`/services/${service.slug}/`} onClick={closeMenus}>{service.navTitle}<Icon name="arrow-up-right" size={14} /></Link>)}
+                    </div>
                   </div>
                 </div>
               )}
@@ -96,6 +106,7 @@ export default function Navbar() {
           </nav>
         </div>
       </header>
+      {menuOpen && <button className="nav-backdrop" type="button" aria-label="Close navigation menu" onClick={closeMenus} />}
     </>
   )
 }

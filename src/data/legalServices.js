@@ -1,6 +1,7 @@
 export const legalServices = [
   {
     slug: 'civil-matters',
+    navTitle: 'Civil Matters',
     cardTitle: 'Civil Matters',
     cardSummary: 'Expert legal assistance in property disputes, family matters, contractual disputes, and other civil litigation.',
     title: 'Civil Litigation & Dispute Resolution',
@@ -22,6 +23,7 @@ export const legalServices = [
   },
   {
     slug: 'criminal-matters',
+    navTitle: 'Criminal Matters',
     cardTitle: 'Criminal Matters',
     cardSummary: 'Professional legal representation in criminal cases, bail applications, trials, and criminal appeals.',
     title: 'Criminal Litigation & Legal Defence',
@@ -43,6 +45,7 @@ export const legalServices = [
   },
   {
     slug: 'recovery-suit',
+    navTitle: 'Recovery Suit',
     cardTitle: 'Recovery Suits',
     cardSummary: 'Legal support for recovering outstanding payments, unpaid debts, and financial dues through appropriate legal proceedings.',
     title: 'Debt Recovery & Money Recovery Litigation',
@@ -65,6 +68,7 @@ export const legalServices = [
   },
   {
     slug: 'commercial-suit',
+    navTitle: 'Commercial Suit',
     cardTitle: 'Commercial Suits',
     cardSummary: 'Legal solutions for business disputes, commercial contracts, financial disagreements, and corporate litigation.',
     title: 'Commercial Litigation & Business Disputes',
@@ -87,6 +91,7 @@ export const legalServices = [
   },
   {
     slug: 'agreement-vetting',
+    navTitle: 'Vetting of Deeds / Agreements',
     cardTitle: 'Vetting of Deeds & Agreements',
     cardSummary: "Professional drafting, reviewing, and verification of legal deeds, contracts, and agreements to protect clients' interests.",
     title: 'Legal Documentation, Drafting & Agreement Vetting',
