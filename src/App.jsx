@@ -8,6 +8,7 @@ const AboutAdvocatePage = lazy(() => import('./Pages/AboutContactPages.jsx').the
 const ContactPage = lazy(() => import('./Pages/AboutContactPages.jsx').then((module) => ({ default: module.ContactPage })))
 const PracticeAreasPage = lazy(() => import('./Pages/PracticePages.jsx').then((module) => ({ default: module.PracticeAreasPage })))
 const PracticeAreaPage = lazy(() => import('./Pages/PracticePages.jsx').then((module) => ({ default: module.PracticeAreaPage })))
+const LegalServicePage = lazy(() => import('./Pages/LegalServicesPages.jsx').then((module) => ({ default: module.LegalServicePage })))
 const LegalResourcesPage = lazy(() => import('./Pages/ResourcePages.jsx').then((module) => ({ default: module.LegalResourcesPage })))
 const BlogDetailsPage = lazy(() => import('./Pages/ResourcePages.jsx').then((module) => ({ default: module.BlogDetailsPage })))
 const FAQsPage = lazy(() => import('./Pages/ResourcePages.jsx').then((module) => ({ default: module.FAQsPage })))
@@ -29,6 +30,7 @@ export default function App() {
             <Route path="about-advocate/" element={<AboutAdvocatePage />} />
             <Route path="practice-areas/" element={<PracticeAreasPage />} />
             {practiceAreas.map((area) => <Route key={area.slug} path={`${area.slug}/`} element={<PracticeAreaPage />} />)}
+            <Route path="services/:slug/" element={<LegalServicePage />} />
             <Route path="legal-resources/" element={<LegalResourcesPage />} />
             <Route path="legal-resources/:slug/" element={<BlogDetailsPage />} />
             <Route path="faqs/" element={<FAQsPage />} />

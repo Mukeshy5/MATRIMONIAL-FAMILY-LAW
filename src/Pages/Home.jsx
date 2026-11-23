@@ -3,11 +3,14 @@ import Icon from '../Components/Icon.jsx'
 import Reveal from '../Components/Reveal.jsx'
 import SectionHeading from '../Components/SectionHeading.jsx'
 import ServiceCard from '../Components/ServiceCard.jsx'
+import LegalServiceCard from '../Components/LegalServiceCard.jsx'
 import BlogCard from '../Components/BlogCard.jsx'
 import FAQAccordion from '../Components/FAQAccordion.jsx'
+import ProfileContactDetails from '../Components/ProfessionalContactDetails.jsx'
 import Seo from '../Components/Seo.jsx'
 import { advocate, officeLocation } from '../data/advocate.js'
 import { practiceAreas } from '../data/practiceAreas.js'
+import { legalServices } from '../data/legalServices.js'
 import { featuredResources } from '../data/resourcePreviews.js'
 import { faqGroups } from '../data/faqs.js'
 import { CTASection } from './Shared.jsx'
@@ -78,6 +81,15 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="legal-services-section section-pad">
+        <div className="container">
+          <Reveal><SectionHeading eyebrow="LEGAL SERVICES" title="Our Legal Services" description="Comprehensive Legal Solutions Tailored to Your Needs" /></Reveal>
+          <Reveal className="legal-services-intro"><p>We provide professional legal assistance and representation across a wide range of legal matters. Our approach focuses on understanding each client’s requirements, protecting their legal interests, and delivering practical, transparent and effective legal solutions.</p></Reveal>
+          <div className="service-grid legal-service-grid">{legalServices.map((service, index) => <Reveal key={service.slug} delay={(index % 3) * 0.04}><LegalServiceCard service={service} /></Reveal>)}</div>
+          <div className="section-end-link"><Link to="/contact/" className="button button--outline">Request a consultation <Icon name="arrow-up-right" size={17} /></Link></div>
+        </div>
+      </section>
+
       <section className="approach-section section-pad">
         <div className="container approach-grid">
           <Reveal className="approach-heading"><p className="eyebrow">HOW WE WORK</p><h2>A considered approach to every family matter.</h2><p>Every family and every case has its own context. These principles shape how legal questions are discussed and prepared.</p><Link to="/about-advocate/" className="text-link">More about the approach <Icon name="arrow-right" size={16} /></Link></Reveal>
@@ -101,6 +113,7 @@ export default function Home() {
               <div><span>Qualifications</span><strong>{advocate.qualifications.length ? advocate.qualifications.join(', ') : 'To be verified and added'}</strong></div>
               <div><span>Enrolment information</span><strong>{advocate.enrolmentNumber || 'To be verified and added'}</strong></div>
             </div>
+            <ProfileContactDetails />
             <Link to="/about-advocate/" className="button button--outline">View advocate profile <Icon name="arrow-right" size={16} /></Link>
           </Reveal>
         </div>

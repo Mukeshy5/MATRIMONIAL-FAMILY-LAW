@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async'
-import { advocate } from '../data/advocate.js'
+import { advocate, firmName } from '../data/advocate.js'
 
 export default function Seo({ title, description, path = '/', type = 'website' }) {
-  const siteName = advocate.name || 'Matrimonial & Family Law'
+  const siteName = firmName || advocate.name || 'Matrimonial & Family Law'
   const pageTitle = title ? `${title} | ${siteName}` : siteName
   const canonical = advocate.website ? new URL(path, advocate.website).toString() : ''
   return (

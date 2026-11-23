@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { advocate, officeLocation } from '../data/advocate.js'
+import { advocate, contactNumbers, firmName, officeLocation } from '../data/advocate.js'
 import { practiceAreas } from '../data/practiceAreas.js'
 import Icon from './Icon.jsx'
 
@@ -38,7 +38,7 @@ export default function Navbar() {
             <span><Icon name="clock" size={14} /> {advocate.hours}</span>
           </div>
           <div className="topbar__contact">
-            {advocate.phone && <a href={`tel:${advocate.phone}`}><Icon name="phone" size={14} /> {advocate.phone}</a>}
+            {contactNumbers.map((contact) => <a key={contact.tel} href={`tel:${contact.tel}`}><Icon name="phone" size={14} /> {contact.display}</a>)}
             {advocate.email && <a href={`mailto:${advocate.email}`}><Icon name="mail" size={14} /> {advocate.email}</a>}
             {!advocate.phone && !advocate.email && <span>Contact details to be configured</span>}
           </div>
@@ -49,8 +49,8 @@ export default function Navbar() {
           <Link to="/" className="brand" aria-label={`${advocate.name}, home`} onClick={closeMenus}>
             <span className="brand-mark"><Icon name="landmark" size={23} /></span>
             <span className="brand-copy">
-              <strong>{advocate.name}</strong>
-              <small>MATRIMONIAL & FAMILY LAW</small>
+              <strong>{firmName}</strong>
+              <small>{advocate.name.toUpperCase()} · {advocate.designation.toUpperCase()}</small>
             </span>
           </Link>
           <button

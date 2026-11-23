@@ -18,14 +18,21 @@ export function PageHero({ eyebrow, title, description, breadcrumbs = [] }) {
   )
 }
 
-export function CTASection({ title = 'Questions about a family-law matter?', description = 'Contact the office to discuss whether a consultation may be appropriate for your circumstances.' }) {
+export function CTASection({
+  title = 'Questions about a family-law matter?',
+  description = 'Contact the office to discuss whether a consultation may be appropriate for your circumstances.',
+  primaryLabel = 'Contact the office',
+  primaryTo = '/contact/',
+  secondaryLabel = 'Explore practice areas',
+  secondaryTo = '/practice-areas/',
+}) {
   return (
     <section className="cta-band">
       <div className="container cta-band__inner">
         <div><p className="eyebrow eyebrow--light">A NEXT STEP, WHEN YOU ARE READY</p><h2>{title}</h2><p>{description}</p></div>
         <div className="cta-band__actions">
-          <Link to="/contact/" className="button button--gold">Contact the office <Icon name="arrow-up-right" size={17} /></Link>
-          <Link to="/practice-areas/" className="button button--outline-light">Explore practice areas <Icon name="arrow-right" size={17} /></Link>
+          <Link to={primaryTo} className="button button--gold">{primaryLabel} <Icon name="arrow-up-right" size={17} /></Link>
+          <Link to={secondaryTo} className="button button--outline-light">{secondaryLabel} <Icon name="arrow-right" size={17} /></Link>
         </div>
       </div>
     </section>

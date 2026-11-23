@@ -2,6 +2,7 @@ import { writeFileSync } from 'node:fs'
 import { advocate } from '../src/data/advocate.js'
 import { practiceAreas } from '../src/data/practiceAreas.js'
 import { blogPosts } from '../src/data/blogPosts.js'
+import { legalServices } from '../src/data/legalServices.js'
 
 const configuredUrl = process.env.SITE_URL || advocate.website
 let baseUrl = ''
@@ -16,6 +17,7 @@ if (configuredUrl) {
 
 const routes = [
   '/', '/about-advocate/', '/practice-areas/', ...practiceAreas.map((area) => `/${area.slug}/`),
+  ...legalServices.map((service) => `/services/${service.slug}/`),
   '/legal-resources/', ...blogPosts.map((post) => `/legal-resources/${post.slug}/`),
   '/faqs/', '/contact/', '/privacy-policy/', '/disclaimer/',
 ]
