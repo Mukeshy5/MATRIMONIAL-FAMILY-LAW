@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+import { useReducedMotion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import Icon from '../Components/Icon.jsx'
 import Reveal from '../Components/Reveal.jsx'
@@ -31,6 +33,48 @@ const consultationSteps = [
 
 const quickFaqs = faqGroups.flatMap((group) => group.questions).slice(0, 4)
 
+function TypingWord({ word }) {
+  const [displayedWord, setDisplayedWord] = useState(word)
+  const reduceMotion = useReducedMotion()
+
+  useEffect(() => {
+    if (reduceMotion) return undefined
+
+    let index = word.length
+    let deleting = true
+    let timeoutId
+
+    const tick = () => {
+      index += deleting ? -1 : 1
+      setDisplayedWord(word.slice(0, index))
+
+      if (deleting && index === 0) {
+        deleting = false
+        timeoutId = window.setTimeout(tick, 450)
+        return
+      }
+
+      if (!deleting && index === word.length) {
+        deleting = true
+        timeoutId = window.setTimeout(tick, 1500)
+        return
+      }
+
+      timeoutId = window.setTimeout(tick, deleting ? 65 : 105)
+    }
+
+    timeoutId = window.setTimeout(tick, 1500)
+    return () => window.clearTimeout(timeoutId)
+  }, [reduceMotion, word])
+
+  return (
+    <em className="hero-typed-word" aria-hidden="true">
+      {reduceMotion ? word : displayedWord}
+      <span className="hero-typed-cursor" />
+    </em>
+  )
+}
+
 export default function Home() {
   return (
     <>
@@ -39,7 +83,7 @@ export default function Home() {
         <div className="container hero-grid">
           <div className="hero-copy">
             <p className="eyebrow"><span className="eyebrow-dot" /> MATRIMONIAL & FAMILY LAW</p>
-            <h1>Legal guidance for <em>sensitive</em> family matters.</h1>
+            <h1 aria-label="Legal guidance for sensitive family matters.">Legal guidance for <TypingWord word="sensitive" /> family matters.</h1>
             <p className="hero-lede">When family relationships face difficult legal questions, understanding your rights and available options can make the next step clearer. {advocate.name} approaches matrimonial and family-law matters with care, discretion and attention to the facts.</p>
             <div className="hero-actions">
               <Link to="/contact/" className="button button--gold">Request a consultation <Icon name="arrow-up-right" size={17} /></Link>
@@ -68,8 +112,8 @@ export default function Home() {
 
       <section className="intro-section section-pad">
         <div className="container intro-grid">
-          <Reveal><p className="eyebrow">A CLEARER WAY FORWARD</p><h2>Legal support with clarity and discretion.</h2></Reveal>
-          <Reveal delay={0.1}><p className="intro-copy">Family disputes can involve personal, financial and emotional concerns. A legal consultation can help you understand your circumstances, the relevant legal options and the procedure that may apply. The aim is to make the next step more informed, one question at a time.</p><Link to="/about-advocate/" className="text-link">Meet {advocate.name} <Icon name="arrow-right" size={16} /></Link></Reveal>
+          <Reveal direction="right"><p className="eyebrow">A CLEARER WAY FORWARD</p><h2>Legal support with clarity and discretion.</h2></Reveal>
+          <Reveal direction="left" delay={0.1}><p className="intro-copy">Family disputes can involve personal, financial and emotional concerns. A legal consultation can help you understand your circumstances, the relevant legal options and the procedure that may apply. The aim is to make the next step more informed, one question at a time.</p><Link to="/about-advocate/" className="text-link">Meet {advocate.name} <Icon name="arrow-right" size={16} /></Link></Reveal>
         </div>
       </section>
 
@@ -92,7 +136,7 @@ export default function Home() {
 
       <section className="approach-section section-pad">
         <div className="container approach-grid">
-          <Reveal className="approach-heading"><p className="eyebrow">HOW WE WORK</p><h2>A considered approach to every family matter.</h2><p>Every family and every case has its own context. These principles shape how legal questions are discussed and prepared.</p><Link to="/about-advocate/" className="text-link">More about the approach <Icon name="arrow-right" size={16} /></Link></Reveal>
+          <Reveal className="approach-heading" direction="right"><p className="eyebrow">HOW WE WORK</p><h2>A considered approach to every family matter.</h2><p>Every family and every case has its own context. These principles shape how legal questions are discussed and prepared.</p><Link to="/about-advocate/" className="text-link">More about the approach <Icon name="arrow-right" size={16} /></Link></Reveal>
           <div className="principles-grid">{principles.map(([title, text], index) => <Reveal key={title} delay={index * 0.07}><article className="principle-card"><span className="principle-number">0{index + 1}</span><h3>{title}</h3><p>{text}</p></article></Reveal>)}</div>
         </div>
       </section>
@@ -106,8 +150,8 @@ export default function Home() {
 
       <section className="profile-section section-pad">
         <div className="container profile-grid">
-          <Reveal className="profile-image-panel" aria-label="Profile image area">{advocate.portrait ? <img className="profile-photo" src={advocate.portrait} alt={`${advocate.name}, ${advocate.designation}`} loading="lazy" /> : <><div className="profile-image-arch"><Icon name="landmark" size={44} /></div><span className="profile-image-label">APPROVED PROFESSIONAL PORTRAIT<br />TO BE ADDED</span></>}</Reveal>
-          <Reveal className="profile-copy" delay={0.1}><p className="eyebrow">THE ADVOCATE</p><h2>{advocate.name}</h2><p className="profile-designation">{advocate.designation}</p><p className="profile-bio">{advocate.intro}</p>
+          <Reveal className="profile-image-panel" direction="right" aria-label="Profile image area">{advocate.portrait ? <img className="profile-photo" src={advocate.portrait} alt={`${advocate.name}, ${advocate.designation}`} loading="lazy" /> : <><div className="profile-image-arch"><Icon name="landmark" size={44} /></div><span className="profile-image-label">APPROVED PROFESSIONAL PORTRAIT<br />TO BE ADDED</span></>}</Reveal>
+          <Reveal className="profile-copy" direction="left" delay={0.1}><p className="eyebrow">THE ADVOCATE</p><h2>{advocate.name}</h2><p className="profile-designation">{advocate.designation}</p><p className="profile-bio">{advocate.intro}</p>
             <div className="profile-facts">
               <div><span>Practice location</span><strong>{officeLocation}</strong></div>
               <div><span>Qualifications</span><strong>{advocate.qualifications.length ? advocate.qualifications.join(', ') : 'To be verified and added'}</strong></div>

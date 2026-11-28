@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import Navbar from './Navbar.jsx'
 import Footer from './Footer.jsx'
 import { FloatingWhatsAppButton } from './WhatsAppButton.jsx'
+import { ScrollProgress } from './Reveal.jsx'
 
 export default function MainLayout() {
   const location = useLocation()
@@ -12,6 +13,7 @@ export default function MainLayout() {
 
   return (
     <>
+      <ScrollProgress />
       <a className="skip-link" href="#main-content">Skip to content</a>
       <Navbar />
       <FloatingWhatsAppButton />
